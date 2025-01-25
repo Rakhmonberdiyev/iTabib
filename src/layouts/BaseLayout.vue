@@ -5,7 +5,9 @@ import Sidebar from "@/components/Sidebar.vue";
 
 <template>
 <Sidebar />
+  <div class="p-4 sm:ml-64">
   <slot></slot>
+  </div>
 </template>
 
 <style scoped>
