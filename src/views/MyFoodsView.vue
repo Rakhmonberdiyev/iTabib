@@ -1,79 +1,82 @@
 <template>
-  <div class="p-4 max-w-lg mx-auto">
-    <h1 class="text-2xl font-bold mb-4">My Food Recommendations</h1>
+  <div class="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-6 text-center text-gray-700">
+      My Food Recommendations
+    </h1>
 
     <!-- Form for Selecting Health Conditions -->
-    <form @submit.prevent="generateRecommendations" class="mb-6">
-      <label for="health-condition" class="block text-sm font-medium mb-2">
-        Select your health conditions:
-      </label>
-      <select
-        v-model="selectedCondition"
-        id="health-condition"
-        class="p-2 border rounded w-full"
-      >
-        <option disabled value="">Choose a condition</option>
-        <option v-for="condition in conditionOptions" :key="condition" :value="condition">
-          {{ condition }}
-        </option>
-      </select>
-
-      <!-- Add Button for Condition -->
-      <button
-        type="button"
-        @click="addCondition"
-        class="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        Add Condition
-      </button>
+    <form @submit.prevent="generateRecommendations" class="grid gap-6">
+      <div>
+        <label for="health-condition" class="block text-lg font-medium mb-2 text-gray-600">
+          Select your health conditions:
+        </label>
+        <div class="flex gap-4">
+          <select
+            v-model="selectedCondition"
+            id="health-condition"
+            class="p-2 border rounded w-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            <option disabled value="">Choose a condition</option>
+            <option v-for="condition in conditionOptions" :key="condition" :value="condition">
+              {{ condition }}
+            </option>
+          </select>
+          <button
+            type="button"
+            @click="addCondition"
+            class="px-4 py-1 bg-blue-500 text-white rounded shadow hover:bg-blue-600 transition duration-300"
+          >
+            Add Condition
+          </button>
+        </div>
+      </div>
 
       <!-- List of Added Conditions with Input Fields -->
-      <div v-for="(condition, index) in selectedConditions" :key="index" class="mt-4">
-        <h2 class="text-lg font-semibold mb-2 capitalize">
-          {{ condition }} details:
+      <div
+        v-for="(condition, index) in selectedConditions"
+        :key="index"
+        class="grid gap-4 bg-gray-50 p-4 rounded-lg shadow-sm"
+      >
+        <h2 class="text-xl font-semibold capitalize text-gray-700">
+          {{ condition }} Details
         </h2>
-
-        <!-- Dynamic Inputs for Condition Details -->
-        <div v-if="condition === 'obesity'" class="mb-4">
-          <label for="weight" class="block text-sm font-medium">Weight (kg):</label>
+        <div v-if="condition === 'obesity'" class="grid gap-2">
+          <label for="weight" class="block text-sm font-medium text-gray-600">Weight (kg):</label>
           <input
             v-model="details[condition].weight"
             id="weight"
             type="number"
-            class="p-2 border rounded w-full"
+            class="p-3 border rounded w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter your weight"
           />
         </div>
-
-        <div v-if="condition === 'diabetes'" class="mb-4">
-          <label for="blood-sugar" class="block text-sm font-medium">Blood Sugar Level (mg/dL):</label>
+        <div v-if="condition === 'diabetes'" class="grid gap-2">
+          <label for="blood-sugar" class="block text-sm font-medium text-gray-600">Blood Sugar Level (mg/dL):</label>
           <input
             v-model="details[condition].bloodSugar"
             id="blood-sugar"
             type="number"
-            class="p-2 border rounded w-full"
+            class="p-3 border rounded w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter your blood sugar level"
           />
         </div>
-
-        <div v-if="condition === 'high cholesterol'" class="mb-4">
-          <label for="ldl" class="block text-sm font-medium">LDL Cholesterol (mg/dL):</label>
+        <div v-if="condition === 'high cholesterol'" class="grid gap-2">
+          <label for="ldl" class="block text-sm font-medium text-gray-600">LDL Cholesterol (mg/dL):</label>
           <input
             v-model="details[condition].ldl"
             id="ldl"
             type="number"
-            class="p-2 border rounded w-full"
+            class="p-3 border rounded w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter your LDL cholesterol level"
           />
         </div>
-
-        <div v-if="condition === 'high blood pressure'" class="mb-4">
-          <label for="bp" class="block text-sm font-medium">Blood Pressure (mmHg):</label>
+        <div v-if="condition === 'high blood pressure'" class="grid gap-2">
+          <label for="bp" class="block text-sm font-medium text-gray-600">Blood Pressure (mmHg):</label>
           <input
             v-model="details[condition].bp"
             id="bp"
             type="text"
-            class="p-2 border rounded w-full"
+            class="p-3 border rounded w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="e.g., 120/80"
           />
         </div>
@@ -81,24 +84,24 @@
 
       <button
         type="submit"
-        class="mt-4 px-4 py-2 bg-green-500 text-white rounded"
+        class="w-full px-4 py-3 bg-green-500 text-white rounded shadow hover:bg-green-600 transition duration-300"
       >
         Get Recommendations
       </button>
     </form>
 
     <!-- Food Recommendations -->
-    <div v-if="recommendations.length" class="bg-gray-100 p-4 rounded">
-      <h2 class="text-lg font-semibold mb-2">Recommended Foods:</h2>
-      <ul class="list-disc ml-5">
-        <li v-for="(food, index) in recommendations" :key="index">
-          {{ food.name }}: {{ food.quantity }} grams
+    <div v-if="recommendations.length" class="bg-gray-100 p-6 rounded-lg shadow-md mt-6">
+      <h2 class="text-xl font-semibold mb-4 text-gray-700">Recommended Foods:</h2>
+      <ul class="list-disc ml-5 grid gap-2">
+        <li v-for="(food, index) in recommendations" :key="index" class="text-gray-600">
+          <span class="font-medium text-gray-800">{{ food.name }}</span>: {{ food.quantity }} grams
         </li>
       </ul>
     </div>
 
     <!-- Error Message -->
-    <div v-if="errorMessage" class="text-red-500 mt-4">
+    <div v-if="errorMessage" class="text-red-500 mt-4 text-center">
       {{ errorMessage }}
     </div>
   </div>
@@ -107,7 +110,6 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 
-// Health condition options
 const conditionOptions = [
   "obesity",
   "diabetes",
@@ -115,14 +117,12 @@ const conditionOptions = [
   "high blood pressure",
 ];
 
-// State
 const selectedCondition = ref<string>("");
 const selectedConditions = ref<string[]>([]);
 const details = reactive<Record<string, any>>({});
 const recommendations = ref<{ name: string; quantity: number }[]>([]);
 const errorMessage = ref<string>("");
 
-// Health database
 const HEALTH_DATABASE: Record<
   string,
   (details?: Record<string, any>) => { name: string; quantity: number }[]
@@ -194,7 +194,6 @@ const HEALTH_DATABASE: Record<
   },
 };
 
-// Add condition
 const addCondition = () => {
   if (selectedCondition.value && !selectedConditions.value.includes(selectedCondition.value)) {
     selectedConditions.value.push(selectedCondition.value);
@@ -203,7 +202,6 @@ const addCondition = () => {
   }
 };
 
-// Generate recommendations
 const generateRecommendations = () => {
   errorMessage.value = "";
   recommendations.value = [];
@@ -230,12 +228,4 @@ const generateRecommendations = () => {
 </script>
 
 <style scoped>
-/* Add custom styles here */
-
-input{
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: .4rem;
-  width: 100%;
-}
 </style>
