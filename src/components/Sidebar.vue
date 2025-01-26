@@ -5,14 +5,20 @@ import IconAirquality from "@/assets/icons/IconAirquality.vue";
 import IconMyFoods from "@/assets/icons/IconMyFoods.vue";
 import IconCalculator from "@/assets/icons/IconCalculator.vue";
 import IconUser from "@/assets/icons/IconUser.vue";
-import {ref} from "vue";
+import {computed} from "vue";
 import {useRouter} from "vue-router";
 
 
 const router = useRouter();
+const activeRoute = computed(() => router.currentRoute.value.fullPath);
+console.log(activeRoute.value == '/dashboard');
 
-const activeRoute = ref(router.currentRoute.value.path);
-console.log(activeRoute.value);
+// log in every 3 seconds setinterval
+
+setInterval(() => {
+  console.log(router.currentRoute.value.fullPath);
+}, 3000);
+
 
 
 
@@ -27,39 +33,44 @@ console.log(activeRoute.value);
       <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
     </svg>
   </button>
-  <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar"  :class="!sidebar ? 'translate-x-0' : ''">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 flex flex-col justify-between">
+  <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64  h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar"  >
+    <div class="h-full px-3 py-4 overflow-y-auto bg-blue-600 text-white dark:bg-gray-800 flex flex-col justify-between">
+     <div>
+
+
+      <div><span class="text-blue-600">I</span>Tabib</div>
       <ul class="space-y-2 font-medium">
+
         <li>
-          <router-link to="/dashboard" :class="activeRoute === '/dashboard' ? 'bg-gray-700 dark:bg-gray-700' : ''" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <router-link to="/dashboard" :class="activeRoute == '/dashboard' ? 'bg-blue-700' : ''" class="flex items-center p-2  rounded-lg dark:text-white hover:bg-blue-700 dark:hover:bg-gray-700 group">
             <IconDashboard/>
             <span class="ms-3">Dashboard</span>
           </router-link>
         </li>
         <li>
-          <router-link to="/air-quality" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <router-link to="/air-quality"  :class="activeRoute == '/air-quality' ? 'bg-blue-700 ' : ''" class="flex items-center p-2  rounded-lg dark:text-white  hover:bg-blue-700 dark:hover:bg-gray-700 group">
             <IconAirquality/>
             <span class="flex-1 ms-3 whitespace-nowrap">Air Quality</span>
             <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-100 bg-red-500 rounded-full dark:bg-blue-900 dark:text-blue-300">178</span>
           </router-link>
         </li>
         <li>
-          <router-link to="/my-foods" :class="activeRoute === '/my-foods' ? 'bg-gray-700 dark:bg-gray-700' : ''" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <router-link to="/my-foods" :class="activeRoute == '/my-foods' ? 'bg-blue-700 ' : ''" class="flex items-center p-2  rounded-lg dark:text-white  hover:bg-blue-700 dark:hover:bg-gray-700 group">
             <IconMyFoods/>
             <span class="flex-1 ms-3 whitespace-nowrap">My foods</span>
           </router-link>
         </li>
         <li>
-          <router-link to="/calculator" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <router-link to="/calculator" :class="activeRoute == '/calculator' ? 'bg-blue-700 ' : ''" class="flex items-center p-2  rounded-lg dark:text-white  hover:bg-blue-700 dark:hover:bg-gray-700 group">
             <IconCalculator/>
             <span class="flex-1 ms-3 whitespace-nowrap">Calculator</span>
           </router-link>
         </li>
 
       </ul>
-
+     </div>
       <div>
-        <router-link to="/air-quality" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <router-link to="/air-quality"  :class="activeRoute === '/user-profile' ? 'bg-blue-700 ' : ''" class="flex items-center p-2  rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
           <IconUser/>
           <span class="ms-3">Farxod Qarshiyev</span>
         </router-link>
