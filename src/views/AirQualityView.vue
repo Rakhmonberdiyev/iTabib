@@ -76,7 +76,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-interface PollutionData {
+export interface PollutionData {
   ts: string;
   aqius: number;
   mainus: string;
@@ -84,7 +84,7 @@ interface PollutionData {
   maincn: string;
 }
 
-interface WeatherData {
+export interface WeatherData {
   ts: string;
   tp: number;
   pr: number;
@@ -92,17 +92,17 @@ interface WeatherData {
   ws: number;
 }
 
-interface LocationData {
+export interface LocationData {
   type: string;
   coordinates: number[];
 }
 
-interface CurrentData {
+export interface CurrentData {
   pollution: PollutionData;
   weather: WeatherData;
 }
 
-interface AirQualityData {
+export interface AirQualityData {
   city: string;
   country: string;
   state: string;
