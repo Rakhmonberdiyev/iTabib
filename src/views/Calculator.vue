@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 max-w-lg mx-auto">
+  <div class="p-4 idish max-w-lg mx-auto">
     <h1 class="text-2xl font-bold mb-4">Food Nutrition Calculator</h1>
 
     <div class="mb-4">
@@ -197,4 +197,7 @@ const removeFood = (index: number) => {
 
 <style scoped>
 /* Add custom styles here */
+.idish{
+  min-height: 100vh;
+}
 </style>

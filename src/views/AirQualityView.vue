@@ -193,6 +193,6 @@ async function fetchAirQuality() {
 
 <style scoped>
 .container {
-  max-width: 700px;
+  min-height: 100vh;
 }
 </style>
