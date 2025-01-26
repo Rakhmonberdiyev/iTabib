@@ -189,6 +189,8 @@ async function fetchAirQuality() {
     console.error('Failed to fetch air quality data:', error);
   }
 }
+
+fetchAirQuality()
 </script>
 
 <style scoped>
